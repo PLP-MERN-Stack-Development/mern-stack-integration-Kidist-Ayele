@@ -1,78 +1,139 @@
-# MERN Stack Integration Assignment
+# MERN Stack Blog Application
 
-This assignment focuses on building a full-stack MERN (MongoDB, Express.js, React.js, Node.js) application that demonstrates seamless integration between front-end and back-end components.
+A full-stack blog application built with MongoDB, Express.js, React.js, and Node.js demonstrating seamless integration between front-end and back-end components.
 
-## Assignment Overview
+## Features
 
-You will build a blog application with the following features:
-1. RESTful API with Express.js and MongoDB
-2. React front-end with component architecture
-3. Full CRUD functionality for blog posts
-4. User authentication and authorization
-5. Advanced features like image uploads and comments
+- ✅ Full CRUD operations for blog posts
+- ✅ Category management
+- ✅ Search functionality
+- ✅ Pagination for post list
+- ✅ Comments system for posts
+- ✅ RESTful API with Express.js
+- ✅ React frontend with routing
+- ✅ Input validation and error handling
+- ✅ Responsive design
+
+## Prerequisites
+
+- Node.js (v18 or higher)
+- MongoDB (local or Atlas)
+- npm or yarn
+
+## Installation
+
+1. **Clone the repository:**
+
+   ```bash
+   git clone <your-repo-url>
+   cd mern-stack-integration-Kidist-Ayele
+   ```
+
+2. **Set up the server:**
+
+   ```bash
+   cd server
+   npm install
+   ```
+
+   Create `.env` file:
+
+   ```env
+   MONGODB_URI=mongodb://localhost:27017/mern-blog
+   PORT=5000
+   NODE_ENV=development
+   JWT_SECRET=your-super-secret-jwt-key
+   JWT_EXPIRE=7d
+   ```
+
+3. **Set up the client:**
+   ```bash
+   cd ../client
+   npm install
+   ```
+   Create `.env` file:
+   ```env
+   VITE_API_URL=http://localhost:5000/api
+   ```
+
+## Running the Application
+
+1. **Start MongoDB** (if local):
+
+   ```bash
+   mongod
+   ```
+
+2. **Start the server:**
+
+   ```bash
+   cd server
+   npm run dev
+   ```
+
+   Server runs on `http://localhost:5000`
+
+3. **Start the client** (new terminal):
+
+   ```bash
+   cd client
+   npm run dev
+   ```
+
+   Client runs on `http://localhost:3000`
+
+4. Open `http://localhost:3000` in your browser
+
+## API Endpoints
+
+### Posts
+
+- `GET /api/posts` - Get all posts (supports `?page=1&limit=10&q=search`)
+- `GET /api/posts/:idOrSlug` - Get single post
+- `POST /api/posts` - Create post
+- `PUT /api/posts/:idOrSlug` - Update post
+- `DELETE /api/posts/:idOrSlug` - Delete post
+- `POST /api/posts/:idOrSlug/comments` - Add a comment to a post
+
+### Categories
+
+- `GET /api/categories` - Get all categories
+- `POST /api/categories` - Create category
+- `PUT /api/categories/:idOrSlug` - Update category
+- `DELETE /api/categories/:idOrSlug` - Archive category
+
+## Screenshots
+
+<!-- Add your screenshots here -->
+<!-- Example: -->
+<!-- ![Home Page](./screenshots/home.png) -->
+<!-- ![Create Post](./screenshots/create-post.png) -->
+<!-- ![Post Details](./screenshots/post-details.png) -->
+<!-- ![Search](./screenshots/search.png) -->
+
+## Technologies Used
+
+- **Frontend**: React 18, React Router, Vite, Axios
+- **Backend**: Node.js, Express.js, Mongoose
+- **Database**: MongoDB
+- **Validation**: Joi
 
 ## Project Structure
 
 ```
-mern-blog/
-├── client/                 # React front-end
-│   ├── public/             # Static files
-│   ├── src/                # React source code
-│   │   ├── components/     # Reusable components
-│   │   ├── pages/          # Page components
-│   │   ├── hooks/          # Custom React hooks
-│   │   ├── services/       # API services
-│   │   ├── context/        # React context providers
-│   │   └── App.jsx         # Main application component
-│   └── package.json        # Client dependencies
-├── server/                 # Express.js back-end
-│   ├── config/             # Configuration files
-│   ├── controllers/        # Route controllers
-│   ├── models/             # Mongoose models
-│   ├── routes/             # API routes
-│   ├── middleware/         # Custom middleware
-│   ├── utils/              # Utility functions
-│   ├── server.js           # Main server file
-│   └── package.json        # Server dependencies
-└── README.md               # Project documentation
+mern-stack-integration-Kidist-Ayele/
+├── client/          # React frontend
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── hooks/
+│   │   └── services/
+├── server/           # Express backend
+│   ├── config/
+│   ├── controllers/
+│   ├── models/
+│   ├── routes/
+│   ├── middleware/
+│   └── validators/
+└── README.md
 ```
-
-## Getting Started
-
-1. Accept the GitHub Classroom assignment invitation
-2. Clone your personal repository that was created by GitHub Classroom
-3. Follow the setup instructions in the `Week4-Assignment.md` file
-4. Complete the tasks outlined in the assignment
-
-## Files Included
-
-- `Week4-Assignment.md`: Detailed assignment instructions
-- Starter code for both client and server:
-  - Basic project structure
-  - Configuration files
-  - Sample models and components
-
-## Requirements
-
-- Node.js (v18 or higher)
-- MongoDB (local installation or Atlas account)
-- npm or yarn
-- Git
-
-## Submission
-
-Your work will be automatically submitted when you push to your GitHub Classroom repository. Make sure to:
-
-1. Complete both the client and server portions of the application
-2. Implement all required API endpoints
-3. Create the necessary React components and hooks
-4. Document your API and setup process in the README.md
-5. Include screenshots of your working application
-
-## Resources
-
-- [MongoDB Documentation](https://docs.mongodb.com/)
-- [Express.js Documentation](https://expressjs.com/)
-- [React Documentation](https://react.dev/)
-- [Node.js Documentation](https://nodejs.org/en/docs/)
-- [Mongoose Documentation](https://mongoosejs.com/docs/) 

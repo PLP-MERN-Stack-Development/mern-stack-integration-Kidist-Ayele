@@ -1,5 +1,3 @@
-// Post.js - Mongoose model for blog posts
-
 const mongoose = require('mongoose');
 
 const PostSchema = new mongoose.Schema(
@@ -20,8 +18,9 @@ const PostSchema = new mongoose.Schema(
     },
     slug: {
       type: String,
-      required: true,
       unique: true,
+      lowercase: true,
+      trim: true,
     },
     excerpt: {
       type: String,
@@ -37,10 +36,16 @@ const PostSchema = new mongoose.Schema(
       ref: 'Category',
       required: true,
     },
-    tags: [String],
+    tags: {
+      type: [String],
+      default: [],
+    },
     isPublished: {
       type: Boolean,
       default: false,
+    },
+    publishedAt: {
+      type: Date,
     },
     viewCount: {
       type: Number,
@@ -66,35 +71,64 @@ const PostSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// Create slug from title before saving
-PostSchema.pre('save', function (next) {
-  if (!this.isModified('title')) {
+PostSchema.pre('validate', async function (next) {
+  if (!this.isModified('title') && this.slug) {
     return next();
   }
-  
-  this.slug = this.title
+
+  let baseSlug = this.title
     .toLowerCase()
-    .replace(/[^\w ]+/g, '')
-    .replace(/ +/g, '-');
-    
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-+|-+$/g, '');
+
+  // Check for duplicate slugs and append number if needed
+  let slug = baseSlug;
+  let counter = 1;
+  const Post = mongoose.model('Post');
+  
+  while (true) {
+    const existing = await Post.findOne({ slug, _id: { $ne: this._id } });
+    if (!existing) {
+      break;
+    }
+    slug = `${baseSlug}-${counter}`;
+    counter++;
+  }
+
+  this.slug = slug;
   next();
 });
 
-// Virtual for post URL
+PostSchema.pre('save', function (next) {
+  if (this.isModified('isPublished') && this.isPublished && !this.publishedAt) {
+    this.publishedAt = new Date();
+  }
+
+  if (this.isModified('excerpt') && this.excerpt) {
+    this.excerpt = this.excerpt.trim();
+  } else if (!this.excerpt && this.content) {
+    this.excerpt = `${this.content.substring(0, 150).trim()}...`;
+  }
+
+  next();
+});
+
 PostSchema.virtual('url').get(function () {
   return `/posts/${this.slug}`;
 });
 
-// Method to add a comment
 PostSchema.methods.addComment = function (userId, content) {
   this.comments.push({ user: userId, content });
   return this.save();
 };
 
-// Method to increment view count
 PostSchema.methods.incrementViewCount = function () {
   this.viewCount += 1;
   return this.save();
 };
+
+PostSchema.index({ title: 'text', content: 'text' });
 
 module.exports = mongoose.model('Post', PostSchema); 
