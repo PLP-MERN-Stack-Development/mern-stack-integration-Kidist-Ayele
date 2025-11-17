@@ -103,13 +103,22 @@ A full-stack blog application built with MongoDB, Express.js, React.js, and Node
 - `DELETE /api/categories/:idOrSlug` - Archive category
 
 ## Screenshots
+- Home Page
+  
+  <img width="1366" height="839" alt="screencapture-localhost-3000-2025-11-17-21_33_18" src="https://github.com/user-attachments/assets/5f52e45d-1964-488f-af7c-7d420f6fdec7" />
 
-<!-- Add your screenshots here -->
-<!-- Example: -->
-<!-- ![Home Page](./screenshots/home.png) -->
-<!-- ![Create Post](./screenshots/create-post.png) -->
-<!-- ![Post Details](./screenshots/post-details.png) -->
-<!-- ![Search](./screenshots/search.png) -->
+- Create Posts
+  
+  <img width="1344" height="612" alt="image" src="https://github.com/user-attachments/assets/bed98ca7-b0a2-42d9-b882-b7209b0cec28" />
+
+- Post Detail
+  
+  <img width="1280" height="594" alt="image" src="https://github.com/user-attachments/assets/42e207fe-a43b-4754-b542-10341441367c" />
+
+- Search posts
+  
+  <img width="1280" height="603" alt="image" src="https://github.com/user-attachments/assets/e20cd437-750f-4d13-ab97-16080229696a" />
+
 
 ## Technologies Used
 
